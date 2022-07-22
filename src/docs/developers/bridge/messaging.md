@@ -132,15 +132,26 @@ The exact speed of a cross-chain transaction depends on the direction in which t
 
 ### For Ethereum (L1) to Optimism (L2) transactions
 
-Transactions sent from L1 to L2 take up to approximately 15 minutes on mainnet and 5 minutes on the Optimism Kovan testnet to reach the target L2 contract.
+Transactions sent from L1 to L2 take up to approximately 15 minutes on mainnet and 5 minutes on the Optimism Goerli testnet to reach the target L2 contract.
 This is because L2 nodes will wait for a certain number of block confirmations on Ethereum before executing an L1 to L2 transaction.
 
 ### For Optimism (L2) to Ethereum (L1) transactions
 
-L2 to L1 transactions must wait 7 days on mainnet and 60 seconds on the Optimism Kovan testnet before they *can* be executed on Ethereum.
-After this waiting period, any user can "finalize" the transaction by triggering a second transaction on Ethereum that sends the message to the target L1 contract.
-This waiting period is a core part of the security mechanism designed to keep funds on Optimism secure and cannot be circumvented.
-See the below section on [Understanding the challenge period](#understanding-the-challenge-period) for more information.
+There are two delays between when a transaction is sent on Optimism and when it is received on Ethereum.
+
+1. The period until the state root is written to the State Commitment Chain on L1. 
+   This period is typically around fifteen minutes.
+   You can see exactly when it happens by looking on a block explorer, either for [mainnet](https://etherscan.io/address/0xBe5dAb4A2e9cd0F27300dB4aB94BeE3A233AEB19) or [goerli](https://goerli.etherscan.io/address/0x9c945aC97Baf48cB784AbBB61399beB71aF7A378).
+
+2. The [fault challenge period](#understanding-the-challenge-period). 
+   On mainnet this is seven days. 
+   On goerli this is just ten seconds for fascilitate fast testing. 
+   
+   After this waiting period, any user can "finalize" the transaction by triggering a second transaction on Ethereum that sends the message to the target L1 contract.
+   This waiting period is a core part of the security mechanism designed to keep funds on Optimism secure and cannot be circumvented.
+
+
+
 
 ## Accessing `msg.sender`
 
